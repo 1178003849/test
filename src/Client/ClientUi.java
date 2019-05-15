@@ -33,10 +33,9 @@ public class ClientUi {
 	private JFrame frmKeberos;
 	private JTextField textField;
 	public TextField textField_1;
-	String IP = "172.20.10.7";
-	int port = 8087;
+	String IP="172.20.10.7";
+	int port=8087;
 	public String username;
-
 	/**
 	 * Launch the application.
 	 */
@@ -66,199 +65,214 @@ public class ClientUi {
 	 */
 	private void initialize() {
 		frmKeberos = new JFrame();
-		frmKeberos.getContentPane().setBackground(Color.WHITE);
-		frmKeberos.setTitle("Keberos¿Í»§¶Ë");
+		frmKeberos.getContentPane().setBackground(new Color(238, 232, 170));
+		frmKeberos.setTitle("Keberoså®¢æˆ·ç«¯");
 		frmKeberos.setBounds(100, 100, 412, 300);
 		frmKeberos.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmKeberos.getContentPane().setLayout(null);
-
-		JButton btnNewButton_2 = new JButton("ÓÃ»§×¢²á");
+		
+		JButton btnNewButton_2 = new JButton("ç”¨æˆ·æ³¨å†Œ");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (textField.getText() != null && textField_1.getText() != null) {
-					send();// ·¢ËÍ×¢²áĞÅÏ¢
+				if(textField.getText()!=null&&textField_1.getText()!=null)
+				{
+					send();//å‘é€æ³¨å†Œä¿¡æ¯	
 				}
-
+				
 			}
 		});
 		btnNewButton_2.setBounds(68, 154, 113, 27);
 		frmKeberos.getContentPane().add(btnNewButton_2);
-
-		JButton btnNewButton_3 = new JButton("ÓÃ»§µÇÂ½");
+		
+		JButton btnNewButton_3 = new JButton("ç”¨æˆ·ç™»é™†");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (textField.getText() != null && textField_1.getText() != null) {
-					send2();// ·¢ËÍµÇÂ½ĞÅÏ¢
+				if(textField.getText()!=null&&textField_1.getText()!=null)
+				{
+					send2();//å‘é€ç™»é™†ä¿¡æ¯	
 				}
 			}
 		});
 		btnNewButton_3.setBounds(212, 154, 113, 27);
 		frmKeberos.getContentPane().add(btnNewButton_3);
-
-		JLabel label = new JLabel("ÓÃ»§Ãû");
+		
+		JLabel label = new JLabel("ç”¨æˆ·å");
 		label.setBounds(52, 46, 72, 18);
 		frmKeberos.getContentPane().add(label);
-
-		JLabel label_1 = new JLabel("  ÃÜÂë");
+		
+		JLabel label_1 = new JLabel("  å¯†ç ");
 		label_1.setBounds(52, 98, 72, 18);
 		frmKeberos.getContentPane().add(label_1);
-
+		
 		textField = new JTextField();
 		textField.setBounds(123, 43, 203, 24);
 		frmKeberos.getContentPane().add(textField);
 		textField.setColumns(10);
-
+		
 		textField_1 = new TextField();
 		textField_1.setBounds(123, 98, 202, 25);
 		frmKeberos.getContentPane().add(textField_1);
 	}
-
-	public void send()// ·¢ËÍ×¢²áÏûÏ¢
+	public void send()//å‘é€æ³¨å†Œæ¶ˆæ¯
 	{
 		try {
-			System.out.println(" ÓÃ»§×¢²á");
+			System.out.println(" ç”¨æˆ·æ³¨å†Œ");
 			Socket socket = new Socket(IP, port);
-			BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())));
-			// System.out.println(" ÓÃ»§×¢²á2");
-			String hashID = hash(textField.getText());
-			pw.println("* " + hashID + " " + textField_1.getText());
+			BufferedReader br = new BufferedReader(new InputStreamReader(
+					socket.getInputStream()));
+			PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(
+					socket.getOutputStream())));
+			//System.out.println(" ç”¨æˆ·æ³¨å†Œ2");
+			String hashID=hash(textField.getText());
+			pw.println("* "+hashID+" "+textField_1.getText());
 			pw.flush();
-			System.out.println("* " + hashID + " " + textField_1.getText());
-			while (true) {
-				String str = br.readLine();
-				if (str.equals("0"))// ×¢²á³É¹¦
+			System.out.println("* "+hashID+" "+textField_1.getText());
+	        while(true)
+	        {
+	        	String str=br.readLine();
+	        	if(str.equals("0"))//æ³¨å†ŒæˆåŠŸ
 				{
-					username = textField.getText();
+	        		username=textField.getText();
 					prompt window1 = new prompt();
 					window1.frame.setVisible(true);
-					window1.textArea.append(" \n   ×¢²á³É¹¦£¡");
+					window1.textArea.append(" \n   æ³¨å†ŒæˆåŠŸï¼");
 					Thread.sleep(10000);
 					textField.setText("");
-					textField.requestFocus();// ÖØÖÃÎÄ±¾¿ò
+					textField.requestFocus();//é‡ç½®æ–‡æœ¬æ¡†
 					textField_1.setText("");
-					textField_1.requestFocus();// ÖØÖÃÎÄ±¾¿ò
-					pw.close();
-					br.close();
-					socket.close();
-					break;
-				} else if (str.equals("1"))// ÓÃ»§ÒÑ´æÔÚ
-				{
-					prompt window1 = new prompt();
-					window1.frame.setVisible(true);
-					window1.textArea.append(" \n ÓÃ»§ÒÑ´æÔÚ£¡");
-					Thread.sleep(10000);
-					textField.setText("");
-					textField.requestFocus();// ÖØÖÃÎÄ±¾¿ò
-					textField_1.setText("");
-					textField_1.requestFocus();// ÖØÖÃÎÄ±¾¿ò
+					textField_1.requestFocus();//é‡ç½®æ–‡æœ¬æ¡†
 					pw.close();
 					br.close();
 					socket.close();
 					break;
 				}
-				br.close();
+				else if(str.equals("1"))//ç”¨æˆ·å·²å­˜åœ¨
+				{
+					prompt window1 = new prompt();
+					window1.frame.setVisible(true);
+					window1.textArea.append(" \n ç”¨æˆ·å·²å­˜åœ¨ï¼");
+					Thread.sleep(10000);
+					textField.setText("");
+					textField.requestFocus();//é‡ç½®æ–‡æœ¬æ¡†
+					textField_1.setText("");
+					textField_1.requestFocus();//é‡ç½®æ–‡æœ¬æ¡†
+					pw.close();
+					br.close();
+					socket.close();
+					break;
+				}
+	    		br.close();
 				pw.close();
 				socket.close();
 				break;
-
-			}
-
+	
+	        }
+			
 		} catch (Exception e1) {
-			System.out.println("Òì³£:" + e1.getMessage());
+			System.out.println("å¼‚å¸¸:" + e1.getMessage());
 		}
-
+		
 	}
-
-	public void send2()// ·¢ËÍµÇÂ½ÏûÏ¢
+	public void send2()//å‘é€ç™»é™†æ¶ˆæ¯
 	{
 		try {
-			System.out.println(" ÓÃ»§µÇÂ½");
+			System.out.println(" ç”¨æˆ·ç™»é™†");
 			Socket socket = new Socket(IP, port);
-			BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())));
-			// System.out.println(" ÓÃ»§µÇÂ½2");
+			BufferedReader br = new BufferedReader(new InputStreamReader(
+					socket.getInputStream()));
+			PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(
+					socket.getOutputStream())));
+			//System.out.println(" ç”¨æˆ·ç™»é™†2");
 			System.out.println("Socket=" + socket);
-			username = textField.getText();
-			String hashID = hash(textField.getText());
-			pw.println("$ " + hashID + " " + textField_1.getText());
+			username=textField.getText();
+			String hashID=hash(textField.getText());
+			pw.println("$ "+hashID+" "+textField_1.getText());
 			pw.flush();
-			System.out.println("* " + hashID + " " + textField_1.getText());
-			while (true) {
-				String str = br.readLine();
-				System.out.println(str);
-				String str2 = str.substring(0, 1);
-				if (str2.equals("*"))// ÃÜÂë´íÎó
+			System.out.println("* "+hashID+" "+textField_1.getText());
+	        while(true)
+	        {
+	        	String str=br.readLine();
+	        	System.out.println(str);
+	        	String str2=str.substring(0,1);
+	        	if(str2.equals("*"))//å¯†ç é”™è¯¯
 				{
 					prompt window1 = new prompt();
 					window1.frame.setVisible(true);
-					window1.textArea.append(" \n   ÃÜÂë´íÎó£¡");
+					window1.textArea.append(" \n   å¯†ç é”™è¯¯ï¼");
 					textField_1.setText("");
-					textField_1.requestFocus();// ÖØÖÃÎÄ±¾¿ò
+					textField_1.requestFocus();//é‡ç½®æ–‡æœ¬æ¡†
 					pw.close();
 					br.close();
 					socket.close();
 					break;
-				} else if (str2.equals("$"))// ÓÃ»§²»´æÔÚ
+				}
+				else if(str2.equals("$"))//ç”¨æˆ·ä¸å­˜åœ¨
 				{
 					prompt window1 = new prompt();
 					window1.frame.setVisible(true);
-					window1.textArea.append(" \nÓÃ»§Ãû²»´æÔÚ£¡");
+					window1.textArea.append(" \nç”¨æˆ·åä¸å­˜åœ¨ï¼");
 					textField.setText("");
-					textField.requestFocus();// ÖØÖÃÎÄ±¾¿ò
+					textField.requestFocus();//é‡ç½®æ–‡æœ¬æ¡†
 					textField_1.setText("");
-					textField_1.requestFocus();// ÖØÖÃÎÄ±¾¿ò
+					textField_1.requestFocus();//é‡ç½®æ–‡æœ¬æ¡†
 					pw.close();
 					br.close();
 					socket.close();
 					break;
-				} else {
+				}
+				else
+				{
 
 					pw.close();
 					br.close();
 					socket.close();
-					socket a = new socket(hashID, textField_1.getText());// ÈÏÖ¤¹ı³Ì
+					socket a=new socket(hashID,textField_1.getText());//è®¤è¯è¿‡ç¨‹
 					System.out.println(a.judge);
-					if (a.judge.equals("true")) {
-						frmKeberos.dispose();// ¹Ø±ÕµÇÂ½½çÃæ
+					if(a.judge.equals("true"))
+					{
+						frmKeberos.dispose();//å…³é—­ç™»é™†ç•Œé¢
 						new client(username);
 					}
 					break;
 				}
-
-			}
-
+	
+	        }
+			
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 	}
-
-	// ½«ÊäÈëµÄÓÃ»§Ãûhash³É¶¨³¤4Î»ID
-	public static String hash(String Secret) {
-		String str = Secret;
-		int hash = str.hashCode();
-		String str2 = null;
-		int j = Math.abs(hash);
-		Integer k = j;
-
-		if (k.toString().length() == 4) {
-			str2 = k.toString();
-		}
-
-		if (k.toString().length() < 4) {
-			str2 = "0" + k.toString();
-			while (str2.length() < 4) {
-				str2 = "0" + str2;
-
+	//å°†è¾“å…¥çš„ç”¨æˆ·åhashæˆå®šé•¿4ä½ID
+		public static String hash(String Secret)
+		{
+			String str = Secret;
+			int hash = str.hashCode();
+			String str2 = null;
+		    int j = Math.abs(hash);
+			Integer k = j;
+			
+			if(k.toString().length() == 4)
+			{
+				str2 = k.toString();
 			}
+			
+			if(k.toString().length()<4)
+			{
+				str2 = "0"+k.toString();
+				while(str2.length() < 4)
+				{
+				  str2 = "0"+str2;
+					
+				}
+			}
+			
+			if(k.toString().length() >4 )
+			{
+				str2 = k.toString().substring(0, 4);
+			}
+						
+			return str2;
+			
 		}
-
-		if (k.toString().length() > 4) {
-			str2 = k.toString().substring(0, 4);
-		}
-
-		return str2;
-
-	}
 
 }
