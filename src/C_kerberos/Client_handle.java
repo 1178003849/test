@@ -3,236 +3,253 @@ package C_kerberos;
 import DES.DES;
 
 public class Client_handle {
-	String ToAS_enclosure(String head, String source_IP, String Dest_IP, String IDC, String IDtgs, String TS1)
-	// ·â×°µ½AS±¨ÎÄ£¨°üÍ·£¬Ô´ID£¬Ä¿µÄID£¬IDC,IDtgs,TS1£©
-	{
-		String message = "";
-		int L_source_IP, L_Dest_IP;
-		L_source_IP = source_IP.length();// Í¨¹ılength»ñÈ¡×Ö·û´®³¤¶È
-		if (L_source_IP > 15)// ³¬¹ı¹æ¶¨³¤¶È±¨´í
-			System.out.println("Ô´IP¸ñÊ½´íÎó£¬ÇëÖØĞÂ·¢ËÍ");
-		if (L_source_IP <= 15)// Ğ¡ÓÚ¹æ¶¨³¤¶È£¬²¹0²¢È¥³ıÖĞ¼äµÄ¡°.¡±
-		{
-			source_IP = addZero(source_IP);
-		}
-		L_Dest_IP = Dest_IP.length();
-		if (L_Dest_IP > 15)// ³¬¹ı¹æ¶¨³¤¶È±¨´í
-			System.out.println("Ä¿µÄIP¸ñÊ½´íÎó£¬ÇëÖØĞÂ·¢ËÍ");
-		if (L_Dest_IP <= 15)// Ğ¡ÓÚ¹æ¶¨³¤¶È£¬²¹0²¢È¥³ıÖĞ¼äµÄ¡°.¡±
-		{
-			Dest_IP = addZero(Dest_IP);
-		}
-		message = head + source_IP + Dest_IP + IDC + IDtgs + TS1;
+	 String ToAS_enclosure(String head,String source_IP,String Dest_IP,String IDC,String IDtgs,String TS1)
+	 //å°è£…åˆ°ASæŠ¥æ–‡ï¼ˆåŒ…å¤´ï¼ŒæºIDï¼Œç›®çš„IDï¼ŒIDC,IDtgs,TS1ï¼‰
+	 {
+		 String message="";
+		 int L_source_IP,L_Dest_IP;
+		 L_source_IP=source_IP.length();//é€šè¿‡lengthè·å–å­—ç¬¦ä¸²é•¿åº¦
+		 if(L_source_IP>15)//è¶…è¿‡è§„å®šé•¿åº¦æŠ¥é”™
+			 System.out.println("æºIPæ ¼å¼é”™è¯¯ï¼Œè¯·é‡æ–°å‘é€");
+		 if(L_source_IP<=15)//å°äºè§„å®šé•¿åº¦ï¼Œè¡¥0å¹¶å»é™¤ä¸­é—´çš„â€œ.â€
+		 {
+			 source_IP=addZero(source_IP);
+		 }
+		 L_Dest_IP=Dest_IP.length();
+		 if(L_Dest_IP>15)//è¶…è¿‡è§„å®šé•¿åº¦æŠ¥é”™
+			 System.out.println("ç›®çš„IPæ ¼å¼é”™è¯¯ï¼Œè¯·é‡æ–°å‘é€");
+		 if(L_Dest_IP<=15)//å°äºè§„å®šé•¿åº¦ï¼Œè¡¥0å¹¶å»é™¤ä¸­é—´çš„â€œ.â€
+		 {
+			 Dest_IP=addZero(Dest_IP);
+		 }
+		 message=head+source_IP+Dest_IP+IDC+IDtgs+TS1;
 		return message;
+		 
+	 }
+	  public String addZero(String ip){//IPå¡«0
+		   String result="";        //ç”¨ä¿å­˜å¤„ç†åçš„ç»“æœ
+		   String []array=ip.split("\\.");     //è¿™ä¸ªå‡½æ•°å°†ä¼ å…¥çš„å­—ç¬¦ä¸²æ ¹æ®è¿™ä¸ªå°ç‚¹æ¥åˆ†è§£ï¼Œå› ä¸ºè¿™ä¸ªç‚¹å¼ä¸€ä¸ªè½¬ä¹‰å­—ç¬¦ï¼Œæ‰€ä»¥éœ€è¦å†™æˆ"\\."
+		   for(int i=0;i<array.length;i++){
+		    while(array[i].length()<3){    //ä¸€å…±è¢«åˆ†æˆäº†å››ä¸ªå­—ç¬¦ä¸²ï¼Œå­—ç¬¦ä¸²é‡Œå·²ç»æ²¡æœ‰äº†å°ç‚¹ï¼Œå¦‚æœä¸€ä¸ªå­—ç¬¦ä¸²çš„é•¿åº¦å°äºä¸‰ï¼Œé‚£ä¹ˆå°±åœ¨å‰é¢åŠ é›¶
+		     array[i]="0"+array[i];
+		    }
 
-	}
+		   }
+		   for(int i=0;i<array.length;i++){
+		    result+=array[i];              //å°†å¤„ç†å¥½çš„å››ä¸ªå­—ç¬¦ä¸²è¿èµ·æ¥
+		   }
+		   return result;
+		  }
+		 String TOtgs_enclosure(String head,String source_IP,String Dest_IP,String IDv,String Ttgs,String Authenticatorc)
+		 //å°è£…æŠ¥æ–‡ï¼ˆåŒ…å¤´ï¼ŒæºIPï¼Œç›®çš„IPï¼ŒIDv,Ttgs,Authenticatorcï¼‰
+		 {
+			 String message="";
+			 
+			 int L_source_IP,L_Dest_IP;
+			 L_source_IP=source_IP.length();//é€šè¿‡lengthè·å–å­—ç¬¦ä¸²é•¿åº¦
+			 if(L_source_IP>15)//è¶…è¿‡è§„å®šé•¿åº¦æŠ¥é”™
+				 System.out.println("æºIPæ ¼å¼é”™è¯¯ï¼Œè¯·é‡æ–°å‘é€");
+			 if(L_source_IP<=15)//å°äºè§„å®šé•¿åº¦ï¼Œè¡¥0å¹¶å»é™¤ä¸­é—´çš„â€œ.â€
+			 {
+				 source_IP=addZero(source_IP);
+			 }
+			 
+			 L_Dest_IP=Dest_IP.length();
+			 if(L_Dest_IP>15)//è¶…è¿‡è§„å®šé•¿åº¦æŠ¥é”™
+				 System.out.println("ç›®çš„IPæ ¼å¼é”™è¯¯ï¼Œè¯·é‡æ–°å‘é€");
+			 if(L_Dest_IP<=15)//å°äºè§„å®šé•¿åº¦ï¼Œè¡¥0å¹¶å»é™¤ä¸­é—´çš„â€œ.â€
+			 {
+				 Dest_IP=addZero(Dest_IP);
+			 }
+			 message=head+source_IP+Dest_IP+IDv+Ttgs+Authenticatorc;
+			return message;
+			 
+		 }
+		 String TOv_enclosure(String head,String source_IP,String Dest_IP,String Tv,String Authenticatorc)
+		 //å°è£…åˆ°VæŠ¥æ–‡ï¼ˆåŒ…å¤´ï¼ŒæºIPï¼Œç›®çš„IPï¼ŒTv,Authenticatorcï¼‰
+		 {
+			 String message="";
+			 
+			 int L_source_IP,L_Dest_IP;
+			 L_source_IP=source_IP.length();//é€šè¿‡lengthè·å–å­—ç¬¦ä¸²é•¿åº¦
+			 if(L_source_IP>15)//è¶…è¿‡è§„å®šé•¿åº¦æŠ¥é”™
+				 System.out.println("æºIPæ ¼å¼é”™è¯¯ï¼Œè¯·é‡æ–°å‘é€");
+			 if(L_source_IP<=15)//å°äºè§„å®šé•¿åº¦ï¼Œè¡¥0å¹¶å»é™¤ä¸­é—´çš„â€œ.â€
+			 {
+				 source_IP=addZero(source_IP);
+			 }
+			 
+			 L_Dest_IP=Dest_IP.length();
+			 if(L_Dest_IP>15)//è¶…è¿‡è§„å®šé•¿åº¦æŠ¥é”™
+				 System.out.println("ç›®çš„IPæ ¼å¼é”™è¯¯ï¼Œè¯·é‡æ–°å‘é€");
+			 if(L_Dest_IP<=15)//å°äºè§„å®šé•¿åº¦ï¼Œè¡¥0å¹¶å»é™¤ä¸­é—´çš„â€œ.â€
+			 {
+				 Dest_IP=addZero(Dest_IP);
+			 }
+			 message=head+source_IP+Dest_IP+Tv+Authenticatorc;
+			return message;
+			 
+		 }
+		 //è§£å°æ¥è‡ªTGSçš„æŠ¥æ–‡ï¼ˆæŠ¥æ–‡ï¼Œå¯†é’¥ï¼‰
+		 TGS_C FROTGS_deblocking(String message,String password)
+			  {
 
-	public String addZero(String ip) {// IPÌî0
-		String result = ""; // ÓÃ±£´æ´¦ÀíºóµÄ½á¹û
-		String[] array = ip.split("\\."); // Õâ¸öº¯Êı½«´«ÈëµÄ×Ö·û´®¸ù¾İÕâ¸öĞ¡µãÀ´·Ö½â£¬ÒòÎªÕâ¸öµãÊ½Ò»¸ö×ªÒå×Ö·û£¬ËùÒÔĞèÒªĞ´³É"\\."
-		for (int i = 0; i < array.length; i++) {
-			while (array[i].length() < 3) { // Ò»¹²±»·Ö³ÉÁËËÄ¸ö×Ö·û´®£¬×Ö·û´®ÀïÒÑ¾­Ã»ÓĞÁËĞ¡µã£¬Èç¹ûÒ»¸ö×Ö·û´®µÄ³¤¶ÈĞ¡ÓÚÈı£¬ÄÇÃ´¾ÍÔÚÇ°Ãæ¼ÓÁã
-				array[i] = "0" + array[i];
+				  //åˆ¤æ–­é•¿åº¦æ˜¯å¦ç¬¦åˆæ ‡å‡†
+				  String[] result=null;
+				  TGS_C a=new TGS_C();
+				  DES des=new DES();
+				  message=des.Decryption(message, password);
+				if(message.length()>4)
+				{
+				  //æŒ‰å›ºå®šæ ¼å¼æˆªå–æŠ¥æ–‡
+				  
+				  a.head=message.substring(0, 4);
+				  a.source_IP=message.substring(4, 16);
+				  a.Dest_IP=message.substring(16, 28);
+				  a.Kcv=message.substring(28, 36);
+				  a.IDv=message.substring(36, 40);
+				  a.TS4=message.substring(40, 52);
+				  a.Tv=message.substring(52, message.length());
+				  
+				  //è¿˜åŸIP
+				  a.source_IP=rebuildIP(a.source_IP);
+				  //System.out.println(a.source_IP);
+				  a.Dest_IP=rebuildIP(a.Dest_IP);
+				}
+				else 
+				{
+					System.out.println("æŠ¥æ–‡é•¿åº¦æœ‰è¯¯ï¼Œè¯·é‡æ–°å‘é€");
+					
+				}
+
+				  return a;
+			  }
+		//è§£å°æ¥è‡ªASçš„æŠ¥æ–‡ï¼ˆæŠ¥æ–‡ï¼Œå¯†é’¥ï¼‰
+		AS_C FROAS_deblocking(String message,String password)
+	  {
+
+		  //åˆ¤æ–­é•¿åº¦æ˜¯å¦ç¬¦åˆæ ‡å‡†
+		  AS_C a=new AS_C();
+		  DES des=new DES();
+
+		  message=des.Decryption(message, password);
+		  //System.out.println(message.length());
+		  //System.out.println(message);
+		if(message.length()>2)
+		{
+		  //æŒ‰å›ºå®šæ ¼å¼æˆªå–æŠ¥æ–‡
+		  
+		  a.head=message.substring(0, 4);
+		  a.source_IP=message.substring(4, 16);
+		  a.Dest_IP=message.substring(16, 28);
+		  a.Kctgs=message.substring(28, 36);
+		  a.IDtgs=message.substring(36, 40);
+		  a.TS2=message.substring(40, 52);
+		  a.Lifetime2=message.substring(52, 58);
+		  a.Ttgs=message.substring(58, message.length());
+		  
+		  //è¿˜åŸIP
+		  a.source_IP=rebuildIP(a.source_IP);
+		  a.Dest_IP=rebuildIP(a.Dest_IP);
+		}
+		else 
+		{
+			System.out.println("æŠ¥æ–‡é•¿åº¦æœ‰è¯¯ï¼Œè¯·é‡æ–°å‘é€");
+		}
+		  return a;
+	  }
+		//è§£å°æ¥è‡ªVçš„æŠ¥æ–‡ï¼ˆæŠ¥æ–‡ï¼Œå¯†é’¥ï¼‰
+	/*	V_C FROv_deblocking(String message,String password)
+		  {
+
+			  //åˆ¤æ–­é•¿åº¦æ˜¯å¦ç¬¦åˆæ ‡å‡†
+			  String[] result=null;
+			  V_C a=new V_C();
+			  DES des=new DES();
+			  message=des.Decryption(message, password);
+			if(message.length()>4)
+			{
+			  //æŒ‰å›ºå®šæ ¼å¼æˆªå–æŠ¥æ–‡
+			  
+			  a.head=message.substring(0, 4);
+		 a.source_IP=message.substring(4, 16);
+			//  a.Dest_IP=message.substring(16, 28);
+			  //System.out.println(Dest_IP);
+			//   a.TS5=message.substring(28, 41);
+
+			  
+			  //è¿˜åŸIP
+			a.source_IP=rebuildIP(a.source_IP);
+			  System.out.println(a.source_IP);
+			  a.Dest_IP=rebuildIP(a.Dest_IP);
+			}
+			else 
+			{
+				System.out.println("æŠ¥æ–‡é•¿åº¦æœ‰è¯¯ï¼Œè¯·é‡æ–°å‘é€");
+				
 			}
 
-		}
-		for (int i = 0; i < array.length; i++) {
-			result += array[i]; // ½«´¦ÀíºÃµÄËÄ¸ö×Ö·û´®Á¬ÆğÀ´
-		}
-		return result;
-	}
+			  return a;
+		  }*/
+		C_V  deblocking(String message)
+		  {
 
-	String TOtgs_enclosure(String head, String source_IP, String Dest_IP, String IDv, String Ttgs,
-			String Authenticatorc)
-	// ·â×°±¨ÎÄ£¨°üÍ·£¬Ô´IP£¬Ä¿µÄIP£¬IDv,Ttgs,Authenticatorc£©
-	{
-		String message = "";
+			  //åˆ¤æ–­é•¿åº¦æ˜¯å¦ç¬¦åˆæ ‡å‡†
+			  String[] result=null;
+			  C_V  a=new C_V ();
+			if(message.length()==668)
+			{
+			  //æŒ‰å›ºå®šæ ¼å¼æˆªå–æŠ¥æ–‡
+			  
+			  a.head=message.substring(0, 4);
+			  a.source_IP=message.substring(4, 16);
+			  a.Dest_IP=message.substring(16, 28);
+			  //System.out.println(Dest_IP);
+			  a.Tv=message.substring(28, 412);
+			  a.Authenticatorc=message.substring(412, 424);
+			  //è¿˜åŸIP
+			  a.source_IP=rebuildIP(a.source_IP);
+			//  System.out.println(a.source_IP);
+			  a.Dest_IP=rebuildIP(a.Dest_IP);
+			}
+			else 
+			{
+				System.out.println("æŠ¥æ–‡é•¿åº¦æœ‰è¯¯ï¼Œè¯·é‡æ–°å‘é€");
+				
+			}
 
-		int L_source_IP, L_Dest_IP;
-		L_source_IP = source_IP.length();// Í¨¹ılength»ñÈ¡×Ö·û´®³¤¶È
-		if (L_source_IP > 15)// ³¬¹ı¹æ¶¨³¤¶È±¨´í
-			System.out.println("Ô´IP¸ñÊ½´íÎó£¬ÇëÖØĞÂ·¢ËÍ");
-		if (L_source_IP <= 15)// Ğ¡ÓÚ¹æ¶¨³¤¶È£¬²¹0²¢È¥³ıÖĞ¼äµÄ¡°.¡±
-		{
-			source_IP = addZero(source_IP);
-		}
-
-		L_Dest_IP = Dest_IP.length();
-		if (L_Dest_IP > 15)// ³¬¹ı¹æ¶¨³¤¶È±¨´í
-			System.out.println("Ä¿µÄIP¸ñÊ½´íÎó£¬ÇëÖØĞÂ·¢ËÍ");
-		if (L_Dest_IP <= 15)// Ğ¡ÓÚ¹æ¶¨³¤¶È£¬²¹0²¢È¥³ıÖĞ¼äµÄ¡°.¡±
-		{
-			Dest_IP = addZero(Dest_IP);
-		}
-		message = head + source_IP + Dest_IP + IDv + Ttgs + Authenticatorc;
-		return message;
-
-	}
-
-	String TOv_enclosure(String head, String source_IP, String Dest_IP, String Tv, String Authenticatorc)
-	// ·â×°µ½V±¨ÎÄ£¨°üÍ·£¬Ô´IP£¬Ä¿µÄIP£¬Tv,Authenticatorc£©
-	{
-		String message = "";
-
-		int L_source_IP, L_Dest_IP;
-		L_source_IP = source_IP.length();// Í¨¹ılength»ñÈ¡×Ö·û´®³¤¶È
-		if (L_source_IP > 15)// ³¬¹ı¹æ¶¨³¤¶È±¨´í
-			System.out.println("Ô´IP¸ñÊ½´íÎó£¬ÇëÖØĞÂ·¢ËÍ");
-		if (L_source_IP <= 15)// Ğ¡ÓÚ¹æ¶¨³¤¶È£¬²¹0²¢È¥³ıÖĞ¼äµÄ¡°.¡±
-		{
-			source_IP = addZero(source_IP);
-		}
-
-		L_Dest_IP = Dest_IP.length();
-		if (L_Dest_IP > 15)// ³¬¹ı¹æ¶¨³¤¶È±¨´í
-			System.out.println("Ä¿µÄIP¸ñÊ½´íÎó£¬ÇëÖØĞÂ·¢ËÍ");
-		if (L_Dest_IP <= 15)// Ğ¡ÓÚ¹æ¶¨³¤¶È£¬²¹0²¢È¥³ıÖĞ¼äµÄ¡°.¡±
-		{
-			Dest_IP = addZero(Dest_IP);
-		}
-		message = head + source_IP + Dest_IP + Tv + Authenticatorc;
-		return message;
-
-	}
-
-	// ½â·âÀ´×ÔTGSµÄ±¨ÎÄ£¨±¨ÎÄ£¬ÃÜÔ¿£©
-	TGS_C FROTGS_deblocking(String message, String password) {
-
-		// ÅĞ¶Ï³¤¶ÈÊÇ·ñ·ûºÏ±ê×¼
-		String[] result = null;
-		TGS_C a = new TGS_C();
-		DES des = new DES();
-		message = des.Decryption(message, password);
-		if (message.length() > 4) {
-			// °´¹Ì¶¨¸ñÊ½½ØÈ¡±¨ÎÄ
-
-			a.head = message.substring(0, 4);
-			a.source_IP = message.substring(4, 16);
-			a.Dest_IP = message.substring(16, 28);
-			a.Kcv = message.substring(28, 36);
-			a.IDv = message.substring(36, 40);
-			a.TS4 = message.substring(40, 52);
-			a.Tv = message.substring(52, message.length());
-
-			// »¹Ô­IP
-			a.source_IP = rebuildIP(a.source_IP);
-			// System.out.println(a.source_IP);
-			a.Dest_IP = rebuildIP(a.Dest_IP);
-		} else {
-			System.out.println("±¨ÎÄ³¤¶ÈÓĞÎó£¬ÇëÖØĞÂ·¢ËÍ");
-
-		}
-
-		return a;
-	}
-
-	// ½â·âÀ´×ÔASµÄ±¨ÎÄ£¨±¨ÎÄ£¬ÃÜÔ¿£©
-	AS_C FROAS_deblocking(String message, String password) {
-
-		// ÅĞ¶Ï³¤¶ÈÊÇ·ñ·ûºÏ±ê×¼
-		AS_C a = new AS_C();
-		DES des = new DES();
-
-		message = des.Decryption(message, password);
-		// System.out.println(message.length());
-		// System.out.println(message);
-		if (message.length() > 2) {
-			// °´¹Ì¶¨¸ñÊ½½ØÈ¡±¨ÎÄ
-
-			a.head = message.substring(0, 4);
-			a.source_IP = message.substring(4, 16);
-			a.Dest_IP = message.substring(16, 28);
-			a.Kctgs = message.substring(28, 36);
-			a.IDtgs = message.substring(36, 40);
-			a.TS2 = message.substring(40, 52);
-			a.Lifetime2 = message.substring(52, 58);
-			a.Ttgs = message.substring(58, message.length());
-
-			// »¹Ô­IP
-			a.source_IP = rebuildIP(a.source_IP);
-			a.Dest_IP = rebuildIP(a.Dest_IP);
-		} else {
-			System.out.println("±¨ÎÄ³¤¶ÈÓĞÎó£¬ÇëÖØĞÂ·¢ËÍ");
-		}
-		return a;
-	}
-
-	// ½â·âÀ´×ÔVµÄ±¨ÎÄ£¨±¨ÎÄ£¬ÃÜÔ¿£©
-	/*
-	 * V_C FROv_deblocking(String message,String password) {
-	 * 
-	 * //ÅĞ¶Ï³¤¶ÈÊÇ·ñ·ûºÏ±ê×¼ String[] result=null; V_C a=new V_C(); DES des=new DES();
-	 * message=des.Decryption(message, password); if(message.length()>4) {
-	 * //°´¹Ì¶¨¸ñÊ½½ØÈ¡±¨ÎÄ
-	 * 
-	 * a.head=message.substring(0, 4); a.source_IP=message.substring(4, 16); //
-	 * a.Dest_IP=message.substring(16, 28); //System.out.println(Dest_IP); //
-	 * a.TS5=message.substring(28, 41);
-	 * 
-	 * 
-	 * //»¹Ô­IP a.source_IP=rebuildIP(a.source_IP); System.out.println(a.source_IP);
-	 * a.Dest_IP=rebuildIP(a.Dest_IP); } else { System.out.println("±¨ÎÄ³¤¶ÈÓĞÎó£¬ÇëÖØĞÂ·¢ËÍ");
-	 * 
-	 * }
-	 * 
-	 * return a; }
-	 */
-	C_V deblocking(String message) {
-
-		// ÅĞ¶Ï³¤¶ÈÊÇ·ñ·ûºÏ±ê×¼
-		String[] result = null;
-		C_V a = new C_V();
-		if (message.length() == 668) {
-			// °´¹Ì¶¨¸ñÊ½½ØÈ¡±¨ÎÄ
-
-			a.head = message.substring(0, 4);
-			a.source_IP = message.substring(4, 16);
-			a.Dest_IP = message.substring(16, 28);
-			// System.out.println(Dest_IP);
-			a.Tv = message.substring(28, 412);
-			a.Authenticatorc = message.substring(412, 668);
-			// »¹Ô­IP
-			a.source_IP = rebuildIP(a.source_IP);
-			// System.out.println(a.source_IP);
-			a.Dest_IP = rebuildIP(a.Dest_IP);
-		} else {
-			System.out.println("±¨ÎÄ³¤¶ÈÓĞÎó£¬ÇëÖØĞÂ·¢ËÍ");
-
-		}
-
-		return a;
-	}
-
-	// ×Ö·û´®»¹Ô­ÎªIPµØÖ·
-	String rebuildIP(String IP) {
-		String first, second, third, forth;
-		first = IP.substring(0, 3);
-		second = IP.substring(3, 6);
-		third = IP.substring(6, 9);
-		forth = IP.substring(9, 12);
-
-		int i = Integer.valueOf(first);// ½«×Ö·û´®×ª»¯ÎªÕûÊı
-		first = String.valueOf(i);// ×ª»¯³É×Ö·û´®
+			  return a;
+		  }
+		//å­—ç¬¦ä¸²è¿˜åŸä¸ºIPåœ°å€
+	  String rebuildIP(String IP)
+	  {
+		String first,second,third,forth;
+		first=IP.substring(0, 3);
+		second=IP.substring(3, 6);
+		third=IP.substring(6, 9);
+		forth=IP.substring(9, 12);
+		
+		int i = Integer.valueOf(first);//å°†å­—ç¬¦ä¸²è½¬åŒ–ä¸ºæ•´æ•°
+		first = String.valueOf(i);//è½¬åŒ–æˆå­—ç¬¦ä¸²
 		i = Integer.valueOf(second);
-		second = String.valueOf(i);
+		second= String.valueOf(i);
 		i = Integer.valueOf(third);
-		third = String.valueOf(i);
+		third=String.valueOf(i);
 		i = Integer.valueOf(forth);
-		forth = String.valueOf(i);
-		IP = first + "." + second + "." + third + "." + forth;
+		forth=String.valueOf(i);
+		IP=first+"."+second+"."+third+"."+forth;
 		return IP;
+		  
+	  }
+	  public static void main(String args[]){
+	       Client_handle deal=new Client_handle();
+	       String a="192168022006";
+	       AS_C b;
+	       System.out.println(deal.rebuildIP(a));
+	       a=deal.ToAS_enclosure("0000","2.168.1.1","192.168.1.2","0001","2001","170628888811");
+	       System.out.println(a);
+	       a+="111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111";
 
-	}
-
-	public static void main(String args[]) {
-		Client_handle deal = new Client_handle();
-		String a = "192168022006";
-		AS_C b;
-		System.out.println(deal.rebuildIP(a));
-		a = deal.ToAS_enclosure("0000", "2.168.1.1", "192.168.1.2", "0001", "2001", "170628888811");
-		System.out.println(a);
-		a += "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111";
-
-	}
+	      }
 
 }
